@@ -23,6 +23,8 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		1E97029F21F58D6D001F67CA /* MapManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E97029D21F58D6D001F67CA /* MapManager.m */; };
+		1E9702A221F58DE9001F67CA /* MapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E9702A121F58DE9001F67CA /* MapView.m */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -336,6 +338,10 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = maps/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = maps/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
+		1E97029D21F58D6D001F67CA /* MapManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapManager.m; sourceTree = "<group>"; };
+		1E97029E21F58D6D001F67CA /* MapManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapManager.h; sourceTree = "<group>"; };
+		1E9702A021F58DE9001F67CA /* MapView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapView.h; sourceTree = "<group>"; };
+		1E9702A121F58DE9001F67CA /* MapView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapView.m; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* maps-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "maps-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* maps-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "maps-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -481,6 +487,7 @@
 		13B07FAE1A68108700A75B9A /* maps */ = {
 			isa = PBXGroup;
 			children = (
+				1E97029621F58BF9001F67CA /* components */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -513,6 +520,42 @@
 				2DF0FFED2056DD460020B375 /* libprivatedata-tvOS.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		1E97029621F58BF9001F67CA /* components */ = {
+			isa = PBXGroup;
+			children = (
+				1E97029721F58BF9001F67CA /* map */,
+			);
+			name = components;
+			path = maps/components;
+			sourceTree = "<group>";
+		};
+		1E97029721F58BF9001F67CA /* map */ = {
+			isa = PBXGroup;
+			children = (
+				1E97029821F58BF9001F67CA /* manager */,
+				1E97029921F58BF9001F67CA /* view */,
+			);
+			path = map;
+			sourceTree = "<group>";
+		};
+		1E97029821F58BF9001F67CA /* manager */ = {
+			isa = PBXGroup;
+			children = (
+				1E97029E21F58D6D001F67CA /* MapManager.h */,
+				1E97029D21F58D6D001F67CA /* MapManager.m */,
+			);
+			path = manager;
+			sourceTree = "<group>";
+		};
+		1E97029921F58BF9001F67CA /* view */ = {
+			isa = PBXGroup;
+			children = (
+				1E9702A021F58DE9001F67CA /* MapView.h */,
+				1E9702A121F58DE9001F67CA /* MapView.m */,
+			);
+			path = view;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
@@ -1114,6 +1157,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				1E9702A221F58DE9001F67CA /* MapView.m in Sources */,
+				1E97029F21F58D6D001F67CA /* MapManager.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
