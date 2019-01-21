@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import <React/RCTComponent.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MapView : MKMapView
+
+@property (nonatomic, copy) RCTBubblingEventBlock currentLocation;
 
 @end
 
