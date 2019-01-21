@@ -1,6 +1,18 @@
 // MapView.js
 
-import { requireNativeComponent } from 'react-native';
-
+import {requireNativeComponent, ViewPropTypes} from 'react-native';
+import PropTypes from 'prop-types'
 // requireNativeComponent automatically resolves 'RNTMap' to 'RNTMapManager'
-module.exports = requireNativeComponent('Map', null);
+
+const iface = {
+    name: 'WadiMaps',
+    propTypes: {
+        region: PropTypes.instanceOf(Object),
+        minZoomLevel: PropTypes.number,
+        maxZoomLevel: PropTypes.number,
+        initialZoomLevel: PropTypes.number,
+        isInteractionEnabled:PropTypes.bool,
+        ...ViewPropTypes, // include the default view properties
+    },
+};
+module.exports = requireNativeComponent('Map', iface);
