@@ -35,9 +35,11 @@ export default class Maps extends Component<Props> {
           }
         </View>
        }
-      <MapView style={styles.container}>
+      <MapView
+        isLocationEnabled = {true}
+        style={styles.container}
+      />
 
-      </MapView>
       </SafeAreaView>
     );
   }
