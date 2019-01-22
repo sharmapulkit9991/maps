@@ -1,68 +1,98 @@
-
 import React, {Component} from 'react';
-import {SafeAreaView, StyleSheet, Text, View, TextInput, Dimensions} from 'react-native';
+import {SafeAreaView, StyleSheet, Text, View, TextInput, Dimensions, TouchableOpacity} from 'react-native';
 
 import MapView from './mapView';
 
 
-
 type Props = {
 
-  isSearchable? : boolean,
-  header? : boolean,
-  heading? : string
+    isSearchable?: boolean,
+    header?: boolean,
+    heading?: string
 };
 export default class Maps extends Component<Props> {
 
-  static defaultProps = {
-    isSearchable: true,
-    header: true,
-    heading: 'Enter Location'
-  }
+    static defaultProps = {
+        isSearchable: true,
+        header: true,
+        heading: 'Enter Location'
+    }
 
-  render() {
+    constructor() {
+        super()
+        this.state = {
+            moveToCurrentLocation: false
+        }
+    }
 
-  const { isSearchable, heading, header } = this.props;
-    return (
-      <SafeAreaView style={{flex: 1}}>
-        {header && <View style = {styles.header}>
-          <Text>
-            {heading}
-          </Text>
-          {
-            isSearchable && <TextInput style={styles.searchField}>
-            </TextInput>
-          }
-        </View>
-       }
-      <MapView
-        isLocationEnabled = {true}
-        style={styles.container}
-      />
+    render() {
 
-      </SafeAreaView>
-    );
-  }
+        const {isSearchable, heading, header} = this.props;
+        const {moveToCurrentLocation} = this.state;
+        return (
+            <SafeAreaView style={{flex: 1}}>
+                {header && <View style={styles.header}>
+                    <Text>
+                        {heading}
+                    </Text>
+                    {
+                        isSearchable && <TextInput style={styles.searchField}>
+                        </TextInput>
+                    }
+                </View>
+                }
+                <MapView
+                    isLocationEnabled={true}
+                    style={styles.container}
+                    region={
+                        {
+                            latitude: 28.7041,
+                            longitude: 77.1025
+                        }
+                    }
+                    minZoomLevel={5}
+                    maxZoomLevel={12}
+                    initialZoomLevel={11}
+                    onRegionChange={(event) => {
+                        console.warn('coordinates are :', event.nativeEvent)
+                    }}
+                    moveToCurrentLocation={moveToCurrentLocation}
+                    currentLocation={(event) => {
+                        console.log("current location is: ", event.nativeEvent)
+                    }}
+                />
+                <TouchableOpacity onPress={() => {
+                    this.setState({moveToCurrentLocation: true})
+
+                }}
+                                  style={{position: 'absolute', top: 50}}>
+                    <Text style={{color: 'red', fontSize: 18}}>Go to current location</Text>
+                </TouchableOpacity>
+
+
+            </SafeAreaView>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  header: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 100,
-  },
-  searchField: {
-    height: 50,
-    width: Dimensions.get('window').width - 30,
-    borderBottomColor: 'lightgray',
-    borderBottomWidth: 1,
-    marginHorizontal: 10
-  }
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#F5FCFF',
+    },
+    header: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 100,
+    },
+    searchField: {
+        height: 50,
+        width: Dimensions.get('window').width - 30,
+        borderBottomColor: 'lightgray',
+        borderBottomWidth: 1,
+        marginHorizontal: 10
+    }
 
 });

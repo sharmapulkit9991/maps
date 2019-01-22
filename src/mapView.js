@@ -11,7 +11,9 @@ const iface = {
         minZoomLevel: PropTypes.number,
         maxZoomLevel: PropTypes.number,
         initialZoomLevel: PropTypes.number,
-        isInteractionEnabled:PropTypes.bool,
+        isInteractionEnabled: PropTypes.bool,
+        onRegionChange: PropTypes.func,
+        moveToCurrentLocation:PropTypes.bool,
         ...ViewPropTypes, // include the default view properties
     },
 };
