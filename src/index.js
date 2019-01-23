@@ -21,7 +21,11 @@ export default class Maps extends Component<Props> {
     constructor() {
         super()
         this.state = {
-            moveToCurrentLocation: false
+            moveToCurrentLocation: false,
+            latitude: 28.7041,
+            longitude: 77.1025,
+            currentLocationLatitude: null,
+            currentLocationLongitude: null
         }
     }
 
@@ -42,6 +46,12 @@ export default class Maps extends Component<Props> {
                 </View>
                 }
                 <MapView
+                  onCurrentLocation={(event) => {
+                    this.setState({
+                      currentLocationLatitude: event.currentLocation.latitude,
+                      currentLocationLongitude: event.currentLocation.longitude
+                    });
+                  }}
                     isLocationEnabled={true}
                     style={styles.container}
                     region={
@@ -54,12 +64,10 @@ export default class Maps extends Component<Props> {
                     maxZoomLevel={12}
                     initialZoomLevel={11}
                     onRegionChange={(event) => {
-                        console.warn('coordinates are :', event.nativeEvent)
-                    }}
+                  console.warn('coordinates are :', event.nativeEvent)
+                }}
                     moveToCurrentLocation={moveToCurrentLocation}
-                    currentLocation={(event) => {
-                        console.log("current location is: ", event.nativeEvent)
-                    }}
+
                 />
                 <TouchableOpacity onPress={() => {
                     this.setState({moveToCurrentLocation: true})

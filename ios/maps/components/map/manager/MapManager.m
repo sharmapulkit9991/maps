@@ -21,7 +21,7 @@
 
 RCT_EXPORT_MODULE()
 
-RCT_EXPORT_VIEW_PROPERTY(currentLocation, RCTBubblingEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onCurrentLocation, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onRegionChange, RCTBubblingEventBlock)
 
 RCT_CUSTOM_VIEW_PROPERTY(isInteractionEnabled, BOOL, MKMapView) {
@@ -99,8 +99,8 @@ RCT_CUSTOM_VIEW_PROPERTY(isLocationEnabled, BOOL, MKMapView) {
   
   CLLocation *latestLocation = [locations lastObject];
 //  [currentMapView setCenterCoordinate:latestLocation.coordinate];
-  if(currentMapView.currentLocation && isLocationEnabled) {
-    currentMapView.currentLocation(@{
+  if(currentMapView.onCurrentLocation && isLocationEnabled) {
+    currentMapView.onCurrentLocation(@{
                                  @"currentLocation": @{
                                      @"latitude": @(latestLocation.coordinate.latitude),
                                      @"longitude": @(latestLocation.coordinate.longitude),

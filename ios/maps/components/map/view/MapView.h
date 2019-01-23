@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MapView : MKMapView<MKMapViewDelegate>
 
-@property (nonatomic, copy) RCTBubblingEventBlock currentLocation;
+@property (nonatomic, copy) RCTBubblingEventBlock onCurrentLocation;
 @property (nonatomic, copy) RCTBubblingEventBlock onRegionChange;
 @property (nonatomic, weak) id <MapViewDelegate> delegate;
 @end
