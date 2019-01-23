@@ -12,10 +12,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MapView : MKMapView
+@protocol MapViewDelegate <NSObject>
+@optional
+- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated;
+@end
+
+@interface MapView : MKMapView<MKMapViewDelegate>
 
 @property (nonatomic, copy) RCTBubblingEventBlock currentLocation;
-
+@property (nonatomic, copy) RCTBubblingEventBlock onRegionChange;
+@property (nonatomic, weak) id <MapViewDelegate> delegate;
 @end
 
 NS_ASSUME_NONNULL_END

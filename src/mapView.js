@@ -13,7 +13,8 @@ const iface = {
         initialZoomLevel: PropTypes.number,
         isInteractionEnabled: PropTypes.bool,
         onRegionChange: PropTypes.func,
-        moveToCurrentLocation:PropTypes.bool,
+      currentLocation: PropTypes.func,
+      moveToCurrentLocation:PropTypes.bool,
         ...ViewPropTypes, // include the default view properties
     },
 };

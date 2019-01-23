@@ -10,9 +10,9 @@
 #import "MapView.h"
 #import <CoreLocation/CoreLocation.h>
 
-@interface MapManager()<CLLocationManagerDelegate> {
+@interface MapManager()<CLLocationManagerDelegate, MapViewDelegate> {
   CLLocationManager *locationManager;
-  MapView *mapView;
+  MapView *currentMapView;
   BOOL isLocationEnabled;
 }
 @end
@@ -25,9 +25,9 @@ RCT_EXPORT_VIEW_PROPERTY(currentLocation, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onRegionChange, RCTBubblingEventBlock)
 
 RCT_CUSTOM_VIEW_PROPERTY(isInteractionEnabled, BOOL, MKMapView) {
-  mapView.zoomEnabled = json;
-  mapView.scrollEnabled = json;
-  mapView.userInteractionEnabled = json;
+  currentMapView.zoomEnabled = json;
+  currentMapView.scrollEnabled = json;
+  currentMapView.userInteractionEnabled = json;
 }
 
 RCT_CUSTOM_VIEW_PROPERTY(maxZoomLevel, float, MKMapView){
@@ -46,7 +46,7 @@ RCT_CUSTOM_VIEW_PROPERTY(region, MKCoordinateRegion, MKMapView) {
     spanInMeters = [json[@"span"] doubleValue];
   }
   MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(locationCoordinate, spanInMeters, spanInMeters);
-  [mapView setRegion:viewRegion animated:YES];
+  [currentMapView setRegion:viewRegion animated:YES];
 }
 
 RCT_CUSTOM_VIEW_PROPERTY(isLocationEnabled, BOOL, MKMapView) {
@@ -58,9 +58,10 @@ RCT_CUSTOM_VIEW_PROPERTY(isLocationEnabled, BOOL, MKMapView) {
 }
 
 - (UIView *)view {
-  mapView = [[MapView alloc] init];
-  [mapView setShowsUserLocation:YES];
-  return mapView;
+  currentMapView = [[MapView alloc] init];
+  [currentMapView setShowsUserLocation:YES];
+  [currentMapView setDelegate:self];
+  return currentMapView;
 }
 
 - (void)getCurrentLocation {
@@ -75,15 +76,31 @@ RCT_CUSTOM_VIEW_PROPERTY(isLocationEnabled, BOOL, MKMapView) {
   [locationManager startUpdatingLocation];
 }
 
+#pragma mark MapViewDelegate methods
+
+- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
+  MKCoordinateRegion region = mapView.region;
+  if(currentMapView.onRegionChange) {
+    currentMapView.onRegionChange(@{
+                              @"region": @{
+                                  @"latitude": @(region.center.latitude),
+                                  @"longitude": @(region.center.longitude),
+                                  @"latitudeDelta": @(region.span.latitudeDelta),
+                                  @"longitudeDelta": @(region.span.longitudeDelta),
+                                  }
+                              });
+  }
+}
+
 #pragma mark CLLocationManagerDelegate methods
 
 - (void)locationManager:(CLLocationManager *)manager
      didUpdateLocations:(NSArray<CLLocation *> *)locations API_AVAILABLE(ios(6.0), macos(10.9)) {
   
   CLLocation *latestLocation = [locations lastObject];
-  [mapView setCenterCoordinate:latestLocation.coordinate];
-  if(mapView.currentLocation && isLocationEnabled) {
-    mapView.currentLocation(@{
+//  [currentMapView setCenterCoordinate:latestLocation.coordinate];
+  if(currentMapView.currentLocation && isLocationEnabled) {
+    currentMapView.currentLocation(@{
                                  @"currentLocation": @{
                                      @"latitude": @(latestLocation.coordinate.latitude),
                                      @"longitude": @(latestLocation.coordinate.longitude),
