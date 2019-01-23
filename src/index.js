@@ -64,7 +64,6 @@ export default class Maps extends Component<Props> {
                     maxZoomLevel={12}
                     initialZoomLevel={11}
                     onRegionChange={(event) => {
-                  console.warn('coordinates are :', event.nativeEvent)
                 }}
                     moveToCurrentLocation={moveToCurrentLocation}
 
